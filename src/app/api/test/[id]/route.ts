@@ -1,25 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server';
-import dbConnect from '@/lib/db';
-import Test from '@/models/Test';
+import { prisma } from '@/lib/prisma';
 
 export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
-  await dbConnect();
-  const test = await Test.findById(params.id);
+  const test = await prisma.test.findUnique({ where: { id: Number(params.id) } });
   if (!test) return NextResponse.json({ error: 'Not found' }, { status: 404 });
   return NextResponse.json(test);
 }
 
 export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
-  await dbConnect();
   const body = await req.json();
-  const test = await Test.findByIdAndUpdate(params.id, body, { new: true });
+  const test = await prisma.test.update({ where: { id: Number(params.id) }, data: body });
   if (!test) return NextResponse.json({ error: 'Not found' }, { status: 404 });
   return NextResponse.json(test);
 }
 
 export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
-  await dbConnect();
-  const test = await Test.findByIdAndDelete(params.id);
+  const test = await prisma.test.delete({ where: { id: Number(params.id) } });
   if (!test) return NextResponse.json({ error: 'Not found' }, { status: 404 });
   return NextResponse.json({ success: true });
 } 

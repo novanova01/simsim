@@ -1,10 +1,37 @@
 import { NextRequest, NextResponse } from 'next/server';
-import dbConnect from '@/lib/db';
-import Test from '@/models/Test';
+import { prisma } from '@/lib/prisma';
 
 const sampleTests = [
   {
-    title: '연애 유형 테스트',
+    title: '나의 도트 캐릭터 유형',
+    description: '도트 세계에서 나는 어떤 모습일까? 나만의 도트 캐릭터를 찾아보세요!',
+    image: '/dot-char.png',
+    questions: [
+      {
+        question: '좋아하는 색은?',
+        options: [
+          { text: '파랑', result: 'A' },
+          { text: '노랑', result: 'B' },
+          { text: '분홍', result: 'C' },
+        ],
+      },
+      {
+        question: '성격을 한마디로 표현하면?',
+        options: [
+          { text: '차분함', result: 'A' },
+          { text: '활발함', result: 'B' },
+          { text: '엉뚱함', result: 'C' },
+        ],
+      },
+    ],
+    results: {
+      A: '차분한 도트 캐릭터',
+      B: '활발한 도트 캐릭터',
+      C: '엉뚱한 도트 캐릭터',
+    },
+  },
+  {
+    title: '연애성향 테스트',
     description: '당신의 연애 스타일을 알아보세요!',
     image: '/dot-love.png',
     questions: [
@@ -29,74 +56,77 @@ const sampleTests = [
     },
   },
   {
-    title: 'MBTI 심리테스트',
-    description: '나의 성격 유형은?',
-    image: '/dot-mbti.png',
+    title: '대학학과테스트',
+    description: '나에게 어울리는 대학 학과는?',
+    image: '/dot-uni.png',
     questions: [
       {
-        question: '친구들과 있을 때 나는?',
+        question: '관심 있는 분야는?',
         options: [
-          { text: '리더 역할', result: 'E' },
-          { text: '조용히 관찰', result: 'I' },
+          { text: '과학/공학', result: 'A' },
+          { text: '예술/디자인', result: 'B' },
+          { text: '인문/사회', result: 'C' },
         ],
       },
       {
-        question: '계획 세우는 걸 좋아하나요?',
+        question: '선호하는 활동은?',
         options: [
-          { text: '네', result: 'J' },
-          { text: '아니오', result: 'P' },
+          { text: '실험/분석', result: 'A' },
+          { text: '창작/표현', result: 'B' },
+          { text: '토론/글쓰기', result: 'C' },
         ],
       },
     ],
     results: {
-      E: '외향적 유형',
-      I: '내향적 유형',
-      J: '계획형',
-      P: '즉흥형',
+      A: '이과/공대 계열',
+      B: '예체능 계열',
+      C: '인문/사회 계열',
     },
   },
   {
-    title: '우울증 자가진단',
-    description: '내 마음의 건강 체크!',
-    image: '/dot-mind.png',
+    title: '상식테스트',
+    description: '당신의 상식 점수는 몇 점일까요?',
+    image: '/dot-quiz.png',
     questions: [
       {
-        question: '최근 2주간 슬펐던 적이 있나요?',
+        question: '지구에서 가장 큰 동물은?',
         options: [
-          { text: '자주', result: 'Y' },
-          { text: '거의 없음', result: 'N' },
+          { text: '코끼리', result: 'B' },
+          { text: '흰수염고래', result: 'A' },
+          { text: '기린', result: 'B' },
         ],
       },
       {
-        question: '잠을 잘 못 잔 적이 있나요?',
+        question: '대한민국의 수도는?',
         options: [
-          { text: '네', result: 'Y' },
-          { text: '아니오', result: 'N' },
+          { text: '서울', result: 'A' },
+          { text: '부산', result: 'B' },
         ],
       },
     ],
     results: {
-      Y: '우울감이 있을 수 있음',
-      N: '정상 범위',
+      A: '상식왕! 정답률 높음',
+      B: '조금 더 공부해봐요!',
     },
   },
 ];
 
 export async function GET() {
-  await dbConnect();
-  const tests = await Test.find({}, 'title description image').sort({ createdAt: -1 });
+  const tests = await prisma.test.findMany({
+    select: { id: true, title: true, description: true, image: true },
+    orderBy: { createdAt: 'desc' },
+  });
   return NextResponse.json(tests);
 }
 
 export async function POST(req: NextRequest) {
-  await dbConnect();
   const { searchParams } = new URL(req.url);
   if (searchParams.get('sample') === '1') {
     // 샘플 데이터 여러 개 추가
-    const inserted = await Test.insertMany(sampleTests);
+    const inserted = await prisma.test.createMany({ data: sampleTests });
     return NextResponse.json(inserted);
   }
   const body = await req.json();
-  const test = await Test.create(body);
+  const test = await prisma.test.create({ data: body });
   return NextResponse.json(test);
 } 

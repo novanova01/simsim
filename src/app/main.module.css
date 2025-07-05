@@ -1,83 +1,335 @@
-.main {
+@import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;700&display=swap');
+
+:root {
+  --main-bg-grad: linear-gradient(180deg, #7f9cf5 0%, #a18cd1 50%, #fbc2eb 100%);
+  --main-blue: #4285F4;
+  --main-orange: #FF7043;
+  --main-violet: #8E24AA;
+  --main-mint: #26C6DA;
+  --main-yellow: #FFD600;
+  --main-red: #E53935;
+  --main-green: #43A047;
+  --main-navy: #3949AB;
+  --main-white: #fff;
+  --main-gray: #e0e0e0;
+  --main-text: #222;
+  --section-bg: #fafdff;
+  --section-shadow: 0 4px 32px 0 #b3c6e633;
+  --thumb-bg: #f3e8ff;
+}
+
+.wrapper {
   min-height: 100vh;
-  background: #f7f7fa;
-  color: #222;
-  font-family: 'Pretendard', 'Noto Sans KR', 'Spoqa Han Sans', sans-serif;
-  padding: 2.5rem 0 2rem 0;
+  background: var(--main-bg-grad);
+  font-family: 'Pretendard', 'Noto Sans KR', 'Montserrat', sans-serif;
 }
-.main::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: url('/dot-bg.png'); /* 도트 패턴 이미지(없으면 제거) */
-  opacity: 0.12;
-  z-index: 0;
-}
-.title {
-  text-align: center;
-  font-size: 2.1rem;
-  margin-bottom: 2.2rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  color: #5a4fff;
+
+.header {
+  width: 100%;
+  min-height: 140px;
+  padding: 36px 0 24px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  background: transparent;
+  border-bottom: none;
+  box-shadow: none;
   position: relative;
-  z-index: 1;
 }
-.grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
-  max-width: 700px;
-  margin: 0 auto;
-  position: relative;
-  z-index: 1;
+
+.logoBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.card {
-  background: #fff;
-  border-radius: 22px;
-  box-shadow: 0 2px 16px 0 #e6e6f0;
-  padding: 2rem 1.2rem 1.5rem 1.2rem;
-  text-align: center;
-  text-decoration: none;
-  color: #222;
-  transition: box-shadow 0.18s, filter 0.18s, background 0.18s;
-  font-size: 1.08rem;
+
+.dotLogo {
+  font-family: 'Pretendard', 'Noto Sans KR', 'Montserrat', sans-serif;
+  font-size: 2.8rem;
+  letter-spacing: 0.01em;
+  color: var(--main-blue);
+  font-weight: 900;
+  padding: 0 18px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  background: #fff2;
+  box-shadow: 0 2px 16px 0 #0001;
+}
+
+.headerSub {
+  margin-top: 12px;
+  font-size: 1.15rem;
+  color: #fff;
+  font-weight: 500;
+  text-shadow: 0 2px 8px #0002;
+  letter-spacing: 0.01em;
+}
+
+.headerNav {
+  margin-top: 18px;
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+.headerNavItem {
+  color: #fff;
+  font-size: 1.05rem;
+  font-weight: 600;
+  opacity: 0.92;
   cursor: pointer;
-  font-family: inherit;
+  transition: opacity 0.13s;
+}
+.headerNavItem:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+.headerSearch {
+  margin-left: 32px;
+  padding: 6px 14px;
+  border-radius: 18px;
   border: none;
-  outline: none;
+  font-size: 1rem;
+  background: #fff;
+  color: #222;
+  box-shadow: 0 1px 6px 0 #0001;
+}
+.headerUser {
+  margin-left: 24px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: var(--main-blue);
+  box-shadow: 0 1px 6px 0 #0001;
+}
+
+.recommendSection {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 38px 0 18px 0;
+}
+
+.recommendCard {
+  display: flex;
+  align-items: center;
+  background: #f6f3ff;
+  border-radius: 18px;
+  padding: 28px 32px;
+  box-sizing: border-box;
+  min-width: 320px;
+  max-width: 520px;
+  box-shadow: 0 4px 18px 0 #ececf0;
+  border: none;
   position: relative;
+  transition: box-shadow 0.18s;
 }
-.card:hover {
-  background: #f3f1ff;
-  box-shadow: 0 4px 24px 0 #d1d1e7;
-  filter: brightness(1.04);
+.recommendCard:hover {
+  box-shadow: 0 8px 32px 0 #d1d1e7;
 }
-.img {
+
+.recommendThumb {
   width: 70px;
   height: 70px;
-  margin-bottom: 1.1rem;
-  image-rendering: auto;
-  border-radius: 16px;
-  background: #f7f7fa;
-  box-shadow: 0 1px 8px 0 #ececf0;
+  border-radius: 12px;
+  border: none;
+  margin-right: 22px;
+  background: #fff;
   object-fit: cover;
+  box-shadow: 0 2px 8px 0 #ececf0;
 }
-.card:nth-child(1) { background: linear-gradient(135deg, #a259f7 60%, #ffb347 100%); }
-.card:nth-child(2) { background: linear-gradient(135deg, #4ecdc4 60%, #ffe156 100%); }
-.card:nth-child(3) { background: linear-gradient(135deg, #ff61a6 60%, #7fff7f 100%); }
-.card:nth-child(4) { background: linear-gradient(135deg, #ffe156 60%, #a259f7 100%); }
-.card:nth-child(5) { background: linear-gradient(135deg, #ffb347 60%, #4ecdc4 100%); }
-.card:nth-child(6) { background: linear-gradient(135deg, #7fff7f 60%, #ff61a6 100%); }
-@media (max-width: 600px) {
-  .grid {
+
+.recommendText {
+  flex: 1;
+}
+
+.recommendTitle {
+  font-size: 1.18rem;
+  color: #6a5acd;
+  margin: 0 0 7px 0;
+  font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+  font-weight: 700;
+}
+
+.recommendSubtitle {
+  font-size: 1.01rem;
+  color: #4ecdc4;
+  margin: 0;
+  font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+  font-weight: 400;
+}
+
+.recommendChar {
+  margin-left: 18px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.recommendChar img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 2px 6px 0 #ececf0;
+}
+
+.testListSection {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 64px 0 0 0;
+  overflow: visible;
+}
+
+.testListGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(320px, 1fr));
+  gap: 28px 28px;
+  max-width: 860px;
+  width: 100%;
+  margin: 0 auto;
+  background: var(--section-bg);
+  border-radius: 24px;
+  box-shadow: var(--section-shadow);
+  padding: 48px 32px 48px 32px;
+  overflow: hidden;
+}
+
+.testCard {
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 0;
+  box-sizing: border-box;
+  transition: box-shadow 0.13s, transform 0.11s, border 0.13s;
+  cursor: pointer;
+  box-shadow: 0 2px 12px 0 #0001;
+  border: 2px solid transparent;
+  min-width: 320px;
+  max-width: 400px;
+  min-height: 400px;
+  background: var(--main-white);
+  color: var(--main-text);
+  position: relative;
+  overflow: hidden;
+  margin: 0 auto;
+}
+.testCard:hover {
+  transform: translateY(-3px) scale(1.015);
+  box-shadow: 0 4px 16px 0 #0001;
+  border: 2.5px solid #e0e0e0;
+  z-index: 2;
+}
+
+.testThumb {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: var(--thumb-bg);
+  border-radius: 5px 5px 0 0;
+  object-fit: cover;
+  display: block;
+  box-shadow: 0 2px 8px 0 #0001;
+  min-height: 0;
+  max-height: 320px;
+}
+
+.testTextBox {
+  text-align: center;
+  width: 100%;
+  padding: 18px 0 0 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background: var(--main-white);
+}
+
+.testTitle {
+  font-size: 1.25rem;
+  color: var(--main-text);
+  margin: 0 0 8px 0;
+  font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+  font-weight: 800;
+  word-break: keep-all;
+}
+
+.testSubtitle {
+  font-size: 1.05rem;
+  color: #555;
+  margin: 0 0 24px 0;
+  font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+  font-weight: 400;
+  word-break: keep-all;
+}
+
+.testCardDisabled {
+  pointer-events: none;
+  cursor: not-allowed;
+  opacity: 0.6;
+  box-shadow: 0 1px 4px 0 #0001;
+  border: 2px solid #eee;
+  transition: none;
+}
+.testCardDisabled:hover {
+  transform: none;
+  box-shadow: 0 1px 4px 0 #0001;
+  border: 2px solid #eee;
+}
+
+@media (max-width: 900px) {
+  .testListGrid {
     grid-template-columns: 1fr;
-    gap: 1.1rem;
+    gap: 18px 0;
+    max-width: 98vw;
+    padding: 24px 6vw 24px 6vw;
   }
-  .main {
-    padding: 1.2rem 0.2rem;
+  .testCard {
+    min-width: 90vw;
+    max-width: 98vw;
+    min-height: 260px;
   }
-  .title {
-    font-size: 1.25rem;
+  .dotLogo {
+    font-size: 2rem;
+    padding: 0 8px;
+  }
+}
+
+@media (max-width: 600px) {
+  .testListGrid {
+    grid-template-columns: 1fr;
+    gap: 10px 0;
+    max-width: 98vw;
+  }
+  .testCard {
+    padding: 14px 6px 10px 6px;
+  }
+}
+
+@media (max-width: 700px) {
+  .recommendCard {
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 0;
+    max-width: 98vw;
+    padding: 18px 8px;
+  }
+  .recommendThumb {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+  .recommendChar {
+    margin-left: 0;
+    margin-top: 10px;
   }
 } 

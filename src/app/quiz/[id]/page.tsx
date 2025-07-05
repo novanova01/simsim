@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import styles from './quiz.module.css';
-import { useParams, notFound } from 'next/navigation';
+import { useParams, notFound, useRouter } from 'next/navigation';
 
 interface Test {
   _id: string;
@@ -18,8 +18,8 @@ interface Stat {
   count: number;
 }
 
-export default function QuizDetail() {
-  const params = useParams();
+export default function QuizDetail({ params }: { params: { id: string } }) {
+  const router = useRouter();
   const id = Array.isArray(params?.id) ? params.id[0] : params?.id;
   const [test, setTest] = useState<Test | null>(null);
   const [loading, setLoading] = useState(true);
@@ -102,42 +102,11 @@ export default function QuizDetail() {
   };
 
   return (
-    <main className={styles.main}>
-      <h1 className={styles.title}>{test.title}</h1>
-      {error && <div style={{color:'red',marginBottom:8}}>{error}</div>}
-      {!showResult ? (
-        <div className={styles.quizBox}>
-          <div className={styles.question}>{test.questions[step].question}</div>
-          <div className={styles.options}>
-            {test.questions[step].options.map((opt, idx) => (
-              <button key={idx} className={styles.optionBtn} onClick={() => handleAnswer(opt.result)} disabled={saving}>
-                {opt.text}
-              </button>
-            ))}
-          </div>
-          <div className={styles.progress}>{step + 1} / {test.questions.length}</div>
-        </div>
-      ) : (
-        <div className={styles.resultBox}>
-          <div className={styles.resultTitle}>결과</div>
-          <div className={styles.resultText}>{test.results[getResult()]}</div>
-          <button className={styles.retryBtn} onClick={() => { setStep(0); setAnswers([]); setShowResult(false); setError(''); }}>다시하기</button>
-          <div style={{marginTop:16,display:'flex',gap:8,justifyContent:'center'}}>
-            <button className={styles.addBtn} onClick={handleShare}>공유하기</button>
-            <button className={styles.addBtn} onClick={handleKakaoShare}>카카오톡</button>
-          </div>
-          <div style={{marginTop:24}}>
-            <div style={{color:'#ff0',marginBottom:4}}>통계</div>
-            {stats.length === 0 ? <div>통계 없음</div> : (
-              <ul style={{listStyle:'none',padding:0}}>
-                {stats.map(s => (
-                  <li key={s._id}>{test.results[s._id] || s._id}: {s.count}명</li>
-                ))}
-              </ul>
-            )}
-          </div>
-        </div>
-      )}
-    </main>
+    <div style={{padding:'48px 0', textAlign:'center'}}>
+      <h1 style={{fontSize:'2rem', fontWeight:700, marginBottom:24}}>퀴즈 {params.id} 상세페이지</h1>
+      <button style={{padding:'10px 24px', borderRadius:8, background:'#7f9cf5', color:'#fff', border:'none', fontWeight:600, fontSize:'1rem', cursor:'pointer'}} onClick={() => router.back()}>
+        돌아가기
+      </button>
+    </div>
   );
 } 

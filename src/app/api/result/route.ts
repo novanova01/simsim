@@ -1,16 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
-import dbConnect from '@/lib/db';
-import Result from '@/models/Result';
+import { prisma } from '@/lib/prisma';
 
 export async function GET() {
-  await dbConnect();
-  const results = await Result.find({}).sort({ createdAt: -1 });
+  const results = await prisma.result.findMany({ orderBy: { createdAt: 'desc' } });
   return NextResponse.json(results);
 }
 
 export async function POST(req: NextRequest) {
-  await dbConnect();
   const body = await req.json();
-  const result = await Result.create(body);
+  const result = await prisma.result.create({ data: body });
   return NextResponse.json(result);
 } 
