@@ -1,0 +1,119 @@
+.main {
+  min-height: 100vh;
+  background: #222;
+  color: #fff;
+  font-family: 'Press Start 2P', 'Pretendard', monospace;
+  padding: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.title {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  text-shadow: 2px 2px 0 #000, 4px 4px 0 #444;
+}
+.section {
+  background: #333;
+  border: 4px solid #fff;
+  border-radius: 12px;
+  box-shadow: 0 0 0 4px #000, 0 8px 24px #111a;
+  padding: 2rem 1.5rem;
+  min-width: 300px;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.subtitle {
+  font-size: 1.1rem;
+  margin-bottom: 1.2rem;
+  color: #ff0;
+  text-shadow: 2px 2px 0 #000;
+}
+.testList {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem 0;
+}
+.testItem {
+  background: #222;
+  border: 2px solid #888;
+  border-radius: 8px;
+  margin-bottom: 0.7rem;
+  padding: 0.7rem 0.5rem;
+  font-size: 1rem;
+}
+.formBox {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  margin-bottom: 1rem;
+}
+.input {
+  background: #111;
+  color: #fff;
+  border: 2px solid #888;
+  border-radius: 8px;
+  font-size: 1rem;
+  padding: 0.7rem 0.5rem;
+  font-family: inherit;
+}
+.addBtn {
+  background: #222;
+  color: #fff;
+  border: 2px solid #888;
+  border-radius: 8px;
+  font-size: 1rem;
+  padding: 0.7rem 2.5rem;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.1s, border 0.1s;
+  margin-bottom: 0.5rem;
+}
+.addBtn:hover {
+  background: #444;
+  border-color: #ff0;
+}
+.cancelBtn {
+  background: #333;
+  color: #fff;
+  border: 2px solid #888;
+  border-radius: 8px;
+  font-size: 1rem;
+  padding: 0.7rem 2.5rem;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.1s, border 0.1s;
+}
+.cancelBtn:hover {
+  background: #222;
+  border-color: #f44;
+}
+.analyticsBox {
+  margin-top: 1rem;
+  min-height: 120px;
+  background: #222;
+  border: 2px dashed #888;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.analyticsDummy {
+  color: #aaa;
+  font-size: 0.95rem;
+}
+@media (max-width: 600px) {
+  .main {
+    padding: 1rem 0.2rem;
+  }
+  .section {
+    min-width: 0;
+    max-width: 100vw;
+    padding: 1.2rem 0.5rem;
+  }
+  .title {
+    font-size: 1.1rem;
+  }
+} 
