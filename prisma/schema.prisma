@@ -6,7 +6,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
 }
 datasource db {
   provider = "mysql"
@@ -29,6 +28,7 @@ model Result {
   testId    Int
   answers   Json
   result    String
+  rid       String   @unique
   createdAt DateTime @default(now())
   Test      Test     @relation(fields: [testId], references: [id])
 }

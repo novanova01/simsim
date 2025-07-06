@@ -4,24 +4,11 @@ import Link from 'next/link';
 import styles from './main.module.css';
 
 interface Test {
-  _id: string;
+  id: number;
   title: string;
   description: string;
   image?: string;
 }
-
-const dummyTests = [
-  { id: 1, title: '나의 도트 캐릭터 유형', subtitle: '도트 세계에서 나는 어떤 모습일까?' },
-  { id: 2, title: 'MBTI 도트 동물', subtitle: '나와 닮은 도트 동물은?' },
-  { id: 3, title: '도트 연애 스타일', subtitle: '연애할 때 나는 어떤 타입?' },
-  { id: 4, title: '도트 직업 테스트', subtitle: '나에게 어울리는 도트 직업은?' },
-  { id: 5, title: '도트 친구 유형', subtitle: '내가 친구라면 어떤 스타일?' },
-  { id: 6, title: '도트 여행지 추천', subtitle: '나에게 어울리는 여행지는?' },
-  { id: 7, title: '도트 음식 취향', subtitle: '내가 좋아할 도트 음식은?' },
-  { id: 8, title: '도트 동물상 테스트', subtitle: '나는 어떤 동물상?' },
-  { id: 9, title: '도트 성격 유형', subtitle: '나의 도트 성격은?' },
-  { id: 10, title: '도트 취미 테스트', subtitle: '나에게 맞는 도트 취미는?' },
-];
 
 export default function Home() {
   const [tests, setTests] = useState<Test[]>([]);
@@ -55,25 +42,29 @@ export default function Home() {
       {/* 테스트 리스트 */}
       <section className={styles.testListSection}>
         <div className={styles.testListGrid}>
-          {dummyTests.map((test, idx) => (
-            idx < 4 ? (
-              <Link href={`/quiz/${test.id}`} key={test.id} className={styles.testCard}>
-                <div className={styles.testThumb} />
-                <div className={styles.testTextBox}>
+          {loading ? (
+            <div>로딩 중...</div>
+          ) : tests.length === 0 ? (
+            <div>등록된 테스트가 없습니다.</div>
+          ) : (
+            tests.map((test) => (
+              <Link href={`/quiz/${test.id}`} key={test.id} className={styles.testCard} style={{textDecoration:'none'}}>
+                <div
+                  className={styles.testThumb}
+                  style={test.image ? { backgroundImage: `url(${test.image})`, backgroundSize: 'cover', backgroundPosition: 'center' } : {}}
+                >
+                  {!test.image && (
+                    <span style={{color:'#bbb', fontSize:'1.1rem', display:'flex', alignItems:'center', justifyContent:'center', height:'100%'}}>이미지 없음</span>
+                  )}
+                </div>
+                <div className={styles.testTextBox} style={{alignItems:'center', textAlign:'center'}}>
                   <h3 className={styles.testTitle}>{test.title}</h3>
-                  <p className={styles.testSubtitle}>{test.subtitle}</p>
+                  <p className={styles.testSubtitle}>{test.description}</p>
+                  <button style={{marginTop:16, padding:'8px 24px', borderRadius:8, background:'#7f9cf5', color:'#fff', border:'none', fontWeight:600, fontSize:'1rem', cursor:'pointer'}}>테스트 시작</button>
                 </div>
               </Link>
-            ) : (
-              <div className={styles.testCard + ' ' + styles.testCardDisabled} key={test.id}>
-                <div className={styles.testThumb} />
-                <div className={styles.testTextBox}>
-                  <h3 className={styles.testTitle}>{test.title}</h3>
-                  <p className={styles.testSubtitle}>{test.subtitle}</p>
-                </div>
-              </div>
-            )
-          ))}
+            ))
+          )}
         </div>
       </section>
     </div>

@@ -1,23 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;700&display=swap');
 
-:root {
-  --main-bg-grad: linear-gradient(180deg, #7f9cf5 0%, #a18cd1 50%, #fbc2eb 100%);
-  --main-blue: #4285F4;
-  --main-orange: #FF7043;
-  --main-violet: #8E24AA;
-  --main-mint: #26C6DA;
-  --main-yellow: #FFD600;
-  --main-red: #E53935;
-  --main-green: #43A047;
-  --main-navy: #3949AB;
-  --main-white: #fff;
-  --main-gray: #e0e0e0;
-  --main-text: #222;
-  --section-bg: #fafdff;
-  --section-shadow: 0 4px 32px 0 #b3c6e633;
-  --thumb-bg: #f3e8ff;
-}
-
 .wrapper {
   min-height: 100vh;
   background: var(--main-bg-grad);

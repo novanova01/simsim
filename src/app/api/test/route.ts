@@ -113,7 +113,7 @@ const sampleTests = [
 
 export async function GET() {
   const tests = await prisma.test.findMany({
-    select: { id: true, title: true, description: true, image: true },
+    select: { id: true, title: true, description: true, image: true, questions: true, results: true },
     orderBy: { createdAt: 'desc' },
   });
   return NextResponse.json(tests);
@@ -122,9 +122,19 @@ export async function GET() {
 export async function POST(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   if (searchParams.get('sample') === '1') {
-    // 샘플 데이터 여러 개 추가
-    const inserted = await prisma.test.createMany({ data: sampleTests });
-    return NextResponse.json(inserted);
+    // 샘플 데이터 여러 개 추가 (중복 title이면 무시)
+    for (const test of sampleTests) {
+      await prisma.test.upsert({
+        where: { title: test.title },
+        update: {},
+        create: test,
+      });
+    }
+    const all = await prisma.test.findMany({
+      select: { id: true, title: true, description: true, image: true, questions: true, results: true },
+      orderBy: { createdAt: 'desc' },
+    });
+    return NextResponse.json(all);
   }
   const body = await req.json();
   const test = await prisma.test.create({ data: body });
